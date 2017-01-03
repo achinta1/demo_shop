@@ -1,0 +1,141 @@
+composer create-project laravel/laravel –-prefer-dist
+example:: composer create-project laravel/laravel PROJECT_NAME –-prefer-dist
+
+//=======composer setup======
+open composer and add
+"require": {
+
+	"laravelcollective/html": "~5.0"
+ 
+},
+
+/*
+"require-dev": {
+    "way/generators": "~2.0"
+}*/ if migrate not working
+
+now run update composer
+c:/projectpath/>composer update
+then add
+/comfig/app.php
+
+providers=[
+	'Collective\Html\HtmlServiceProvider',
+	//'Way\Generators\GeneratorsServiceProvider', // if migrate not working
+]
+
+aliases=[
+	'Form' => 'Collective\Html\FormFacade',
+				
+	'Html' => 'Collective\Html\HtmlFacade',
+				
+	'Input' => Illuminate\Support\Facades\Input::class,
+]
+
+
+//==== image resizer ========
+run from terminal 
+composer require intervention/image
+
+OR add
+
+"require": {
+   "intervention/image": "^2.3"
+}
+now run update composer
+c:/projectpath/>composer update
+
+/comfig/app.php
+$provides => [
+		'Intervention\Image\ImageServiceProvider'
+	],
+$aliases => [
+		'Image' => 'Intervention\Image\Facades\Image'
+	]
+
+//============excel generate=========
+run from terminal 
+composer require maatwebsite/excel
+
+/comfig/app.php
+'providers' => [
+    Maatwebsite\Excel\ExcelServiceProvider::class,
+],
+
+'aliases' => [
+    'Excel'     => Maatwebsite\Excel\Facades\Excel::class,
+],
+
+//==========PDF generate ==============
+run from terminal
+composer require barryvdh/laravel-dompdf
+
+/comfig/app.php
+'providers' => [
+    Barryvdh\DomPDF\ServiceProvider::class,
+],
+
+'aliases' => [
+    'PDF' => Barryvdh\DomPDF\Facade::class,
+],
+
+
+
+====== run laravel from server=====
+php artisan serve
+
+=====Change APP_KEY ====
+php artisan key:generate
+
+======= server down mode=====
+php artisan down
+
+======= server up mode=====
+php artisan up
+
+//===================Migrate user table=========
+php artisan migrate:make create_users_table ––create=users
+
+php artisan make:migration create_users_table --create=users  // new version
+
+php artisan migrate
+
+
+//==========Make AUTH =========
+php artisan make:auth
+
+
+
+
+//=======Make middleware======
+php artisan make:middleware AgeMiddleware
+"AgeMiddleware" is the name of middle-ware 
+
+need to register the middleware.
+middleware can be register in "Global Middleware"  and "Route Middleware"
+
+The Global Middleware will run on every HTTP request of the application, 
+whereas the Route Middleware will be assigned to a specific route.
+The middleware can be registered at app/Http/Kernel.php. 
+This file contains two properties $middleware and $routeMiddleware.
+$middleware property is used to register Global Middleware and $routeMiddleware 
+property is used to register route specific middleware.
+
+
+//========== Create model  ======
+php artisan make:model Brand
+
+//========== Create controller  ======
+php artisan make:controller Brand --resource
+
+//======= database seed =======
+php artisan db:seed
+
+it call the class DatabaseSeeder 
+
+OR
+php artisan migrate:refresh --seed
+
+
+to reload db 
+
